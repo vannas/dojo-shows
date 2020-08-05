@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <i class="large material-icons">tv</i>
+      <h2 class="">TV Shows</h2>
+      <center><Series/></center>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Series from './components/Series.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Series
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Oswald', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
+  margin-bottom:40px;
+}
+
+h2 {
+  margin-top:-1rem;
 }
 </style>
