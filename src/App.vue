@@ -2,18 +2,18 @@
   <div id="app">
       <i class="large material-icons">tv</i>
       <h2 class="">TV Shows</h2>
-      <center><Series/></center>
+      
+      <router-view />
+
   </div>
 </template>
 
 <script>
-import Series from './components/Series.vue'
-
 
 export default {
   name: 'App',
   components: {
-    Series
+   
   }
 }
 </script>
@@ -26,7 +26,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 10px;
-  margin-bottom:40px;
+  margin-bottom:50px;
 }
 
 h2 {

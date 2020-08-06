@@ -1,63 +1,63 @@
 <template>
   <div class="hello container">
       
-      <div class="col s8 m8 tabla1">
-        <table class ="striped bordered cyan lighten-4">
-          <thead>
-            <tr>
-              <th>Título</th>
-              <th>Network</th>
-              <th>Temporadas</th>
-              <th>Al Aire</th>
-              <th>Géneros</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="show in shows" :key="show.id">
-              <td class="sp"><i class="small material-icons">local_movies</i> {{ show.title }}</td>
-              <td>{{ show.network }}</td>
-              <td>{{ show.numberofSeasons }}</td>
-              <td v-if="show.isCurrent"> Sí </td> 
-              <td v-else> No </td> 
-              <td><span v-for="(genre, i) in show.genres" :key="i"> {{ genre }} /</span> </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="col s8 m8 tabla1">
+      <table class ="striped bordered cyan lighten-4">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Network</th>
+            <th>Temporadas</th>
+            <th>Al Aire</th>
+            <th>Géneros</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="show in shows" :key="show.id">
+            <td class="sp"><i class="small material-icons">local_movies</i> <router-link :to="'/shows/'+ show.id">{{ show.title }}</router-link></td>
+            <td>{{ show.network }}</td>
+            <td>{{ show.numberofSeasons }}</td>
+            <td v-if="show.isCurrent"> Sí </td> 
+            <td v-else> No </td> 
+            <td><span v-for="(genre, i) in show.genres" :key="i"> {{ genre }} /</span> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>     
 
-      <div class="formulario col s10 m10">
-        <h5 class="right-align">Ingresa una Nueva Serie</h5>
-        <!--Creo un formulario para ingresar nuevos datos a la tabla y vinculo con v-bind @ al metodo----->
-        <form @submit="addnewshow">
-          <!--//cada campo de input debe vincularse con un v-model amarrado a un elemento en el data() del componente-->
-          <div class="input-field">
-            <input id="titulo" type="text" required="required" class="validate col s4 m4" v-model="nueva_serie">
-            <label for="titulo">Título</label>
-          </div>
-          <div class="input-field">
-            <input id="network" type="text" required="required" class="validate col s4 m4" v-model="nuevo_canal">
-            <label for="network">Cadena</label>
-          </div>
-          <div class="input-field">
-            <label for="seasons">Temporadas</label>
-            <input id="seasons" type="number" required="required" class="validate col m4 s4" v-model="temporadas">
-          </div>
-          <div class="input-field col m6 s6">
-            <label>Géneros (Separe con comas)</label>
-            <input class="col m6 s6" id="1" type="text" placeholder="Campo obligatorio" required value="" v-model="generos"/>
-            
-          </div>
-          <div class="input-field">
-            <p class="">La serie sigue activa?</p>
-            <p class="col m6 s6"><label><input type="radio" name="opcion" id="yes" checked class="with-gap" /><span>Sí</span></label></p>
-            <p class="col m6 s6"><label><input type="radio" name="opcion" id="no" class="with-gap" /><span>No</span></label></p>
-          </div>
-          <div class="input-field">
-            <input type="submit" class="btn" value="Ingresar">
-          </div>
-        </form>
-      </div>
-    
+    <div class="container formulario col s10 m10">
+      <h5 class="right-align">Ingresa una Nueva Serie</h5>
+      <!--Creo un formulario para ingresar nuevos datos a la tabla y vinculo con v-bind @ al metodo----->
+      <form @submit="addnewshow">
+        <!--//cada campo de input debe vincularse con un v-model amarrado a un elemento en el data() del componente-->
+        <div class="input-field">
+          <input id="titulo" type="text" required="required" class="validate col s4 m4" v-model="nueva_serie">
+          <label for="titulo">Título</label>
+        </div>
+        <div class="input-field">
+          <input id="network" type="text" required="required" class="validate col s4 m4" v-model="nuevo_canal">
+          <label for="network">Cadena</label>
+        </div>
+        <div class="input-field">
+          <label for="seasons">Temporadas</label>
+          <input id="seasons" type="number" required="required" class="validate col m4 s4" v-model="temporadas">
+        </div>
+        <div class="input-field col m6 s6">
+          <label>Géneros (Separe con comas)</label>
+          <input class="col m6 s6" id="1" type="text" placeholder="Campo obligatorio" required value="" v-model="generos"/>
+          
+        </div>
+        <div class="input-field">
+          <p class="">La serie sigue activa?</p>
+          <p class="col m6 s6"><label><input type="radio" name="opcion" id="yes" value="si" checked class="with-gap" v-model="activo"/><span>Sí</span></label></p>
+          <p class="col m6 s6"><label><input type="radio" name="opcion" id="no" value="no" class="with-gap" v-model="activo"/><span>No</span></label></p>
+        </div>
+        <div class="input-field">
+          <input type="submit" class="btn" value="Ingresar">
+        </div>
+      </form>
+    </div>
+
   </div>
 </template>
 
@@ -72,7 +72,7 @@ export default {
       nueva_serie: '',
       nuevo_canal:'',
       temporadas: null,
-      activo: true,
+      activo: 'si',
       generos:'' 
 
     }
@@ -85,22 +85,16 @@ export default {
         title: this.nueva_serie,
         network: this.nuevo_canal,
         numberofSeasons: parseInt(this.temporadas),
-        isCurrent: null,
-        genres: this.generos.split(',').push
+        isCurrent: this.activo == 'si'? true : false,
+        genres: this.generos.split(',')
       });
       // Ahora vaciamos el formulario
       this.nueva_serie = '';
       this.nuevo_canal = '';
       this.temporadas = 0;
-      this.activo = null;
-      this.genre = []
+      this.activo = 'si';
+      this.generos = []
     },
-    created: function () {
-      var i = 0;
-      for (i = 0; i < this.genres.length; i++){
-          this.$set(this.genre, i , 0)
-      }
-    }
   },
   firestore() {
     return {
@@ -118,9 +112,8 @@ export default {
 
 table{
   color:blue-grey;
-  font-size: 16px;
-  
-}
+  font-size: 16px;  
+  }
 
 th {
   
