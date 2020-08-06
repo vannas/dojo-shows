@@ -9,6 +9,7 @@
 <script>
 import Series from './components/Series.vue'
 
+
 export default {
   name: 'App',
   components: {
