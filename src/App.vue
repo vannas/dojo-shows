@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="center-align">
       <i class="large material-icons">tv</i>
       <h2 class="">TV Shows</h2>
       
@@ -23,7 +23,6 @@ export default {
   font-family: 'Oswald', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 10px;
   margin-bottom:50px;

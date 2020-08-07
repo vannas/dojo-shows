@@ -5,11 +5,12 @@
       <table class ="striped bordered cyan lighten-4">
         <thead>
           <tr>
-            <th>Título</th>
+            <th>Title</th>
             <th>Network</th>
-            <th>Temporadas</th>
-            <th>Al Aire</th>
-            <th>Géneros</th>
+            <th>Seasons</th>
+            <th>On Air</th>
+            <th>Genres</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -17,43 +18,54 @@
             <td class="sp"><i class="small material-icons">local_movies</i> <router-link :to="'/shows/'+ show.id">{{ show.title }}</router-link></td>
             <td>{{ show.network }}</td>
             <td>{{ show.numberofSeasons }}</td>
-            <td v-if="show.isCurrent"> Sí </td> 
+            <td v-if="show.isCurrent"> Yes </td> 
             <td v-else> No </td> 
             <td><span v-for="(genre, i) in show.genres" :key="i"> {{ genre }} /</span> </td>
+            <td class="icons"> <router-link :to="'/shows/' + show.id + '/editar'"> <i class="material-icons">edit</i></router-link> ╵ <a href="#" @click.prevent="borrar_serie(show.id)"> <i class="material-icons">delete</i></a> </td>
           </tr>
         </tbody>
       </table>
     </div>     
 
-    <div class="container formulario col s10 m10">
-      <h5 class="right-align">Ingresa una Nueva Serie</h5>
+    <div class="formulario col s8 m8">
+      <h5 class="right-align">Enter a new show</h5>
       <!--Creo un formulario para ingresar nuevos datos a la tabla y vinculo con v-bind @ al metodo----->
       <form @submit="addnewshow">
         <!--//cada campo de input debe vincularse con un v-model amarrado a un elemento en el data() del componente-->
         <div class="input-field">
           <input id="titulo" type="text" required="required" class="validate col s4 m4" v-model="nueva_serie">
-          <label for="titulo">Título</label>
+          <label for="titulo">Title</label>
         </div>
         <div class="input-field">
           <input id="network" type="text" required="required" class="validate col s4 m4" v-model="nuevo_canal">
-          <label for="network">Cadena</label>
+          <label for="network">Network</label>
         </div>
         <div class="input-field">
-          <label for="seasons">Temporadas</label>
+          <label for="seasons">Seasons</label>
           <input id="seasons" type="number" required="required" class="validate col m4 s4" v-model="temporadas">
         </div>
         <div class="input-field col m6 s6">
-          <label>Géneros (Separe con comas)</label>
+          <label>Genres (Separated by commas)</label>
           <input class="col m6 s6" id="1" type="text" placeholder="Campo obligatorio" required value="" v-model="generos"/>
-          
         </div>
+
         <div class="input-field">
-          <p class="">La serie sigue activa?</p>
-          <p class="col m6 s6"><label><input type="radio" name="opcion" id="yes" value="si" checked class="with-gap" v-model="activo"/><span>Sí</span></label></p>
-          <p class="col m6 s6"><label><input type="radio" name="opcion" id="no" value="no" class="with-gap" v-model="activo"/><span>No</span></label></p>
+          <label for="trailer">Series Summary</label>
+          <textarea id="summary" class="validate materialize-textarea col s5 m5" placeholder="At least 1 paragraph"  minlength="150" v-model="summary" required="required"> </textarea>
         </div>
+
         <div class="input-field">
-          <input type="submit" class="btn" value="Ingresar">
+          <p class="">Is the show still on the air?</p>
+          <p class="col m3 s3"><label><input type="radio" name="opcion" id="yes" value="si" checked class="with-gap" v-model="activo"/><span>Yes</span></label></p>
+          <p class="col m3 s3"><label><input type="radio" name="opcion" id="no" value="no" class="with-gap" v-model="activo"/><span>No</span></label></p>
+        </div>
+
+        <!--<div class="input-field">
+          <textarea id="trailer" class="materialize-textarea col s4 m4" placeholder="Insert youtube embed code" v-model="trailer" type=""> </textarea>
+          <label for="trailer">Embed Trailer (Optional)</label>
+        </div>-->
+        <div class="input-field">
+          <input type="submit" class="btn" value="Enter">
         </div>
       </form>
     </div>
@@ -95,6 +107,25 @@ export default {
       this.activo = 'si';
       this.generos = []
     },
+    async editar_serie(id_serie){
+      try {
+        db.collection('shows').doc(id_serie).delete();
+      }
+      catch (error) {
+        console.log(error);
+      }
+      
+    },
+    async borrar_serie(id_serie){
+      if (window.confirm('¿Confirmas que quieres borrar toda la información de esta serie?')){      
+        try {
+          db.collection('shows').doc(id_serie).delete();
+        }
+        catch (error) {
+          console.log(error);
+        }
+      }
+    },
   },
   firestore() {
     return {
@@ -129,13 +160,18 @@ td {
   text-align: center;
   }
 
+.icons{
+  vertical-align: top;
+  margin-top:3px;
+}
+
 .sp{
   text-align:left;
   vertical-align: middle;
 }
 
 h5{
-  margin-top:20px;
+  margin-top:60px;
 }
 
 .formulario{
@@ -151,6 +187,7 @@ h5{
 }
 
 .btn{
+  display:block;
   background-color:indianred;
   margin-bottom: 10px;
   

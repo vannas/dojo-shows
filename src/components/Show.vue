@@ -1,35 +1,35 @@
 <template>
-    <div class="container col s12 m12">
+  <div class="container col s12 m12">
 
-        <h2 class="left-align">{{title}}</h2>
+    <h2 class="left-align">{{title}}</h2>
 
-        <div class="resumen align-justify col s4 m4">
-            <h5 class="white-text">Summary:</h5>
-    
-            <h6 class="col s4 m4"> {{summary}} </h6>
-        </div>     
+    <div class="resumen align-justify col s4 m4">
+        <h5 class="white-text">Summary:</h5>
 
-        <div class="info col s5 m5 light-blue-accent-2">
-            <p><h6>Network: </h6> {{network}} 
-            <p><h6>Seasons on air: </h6> {{numberofSeasons}} 
-            <p><h6>Género: </h6>
-            <p><span v-for="(genre, i) in genres" :key="i"> {{ genre }} |</span> 
-            <p><h6>Activa: </h6> 
-            <i class="small material-icons" v-if="isCurrent"> check </i>
-            <i class="small material-icons red remove_circle" v-else> local_movies </i>
-        </div>
+        <h6 class="col s4 m4"> {{summary}} </h6>
+    </div>     
 
-        <div class="trailer" v-html="trailer">
-            {{trailer}}
-        </div>
+    <div class="info col s5 m5 light-blue-accent-2">
+        <p><h6>Network: </h6> {{network}} 
+        <p><h6>Seasons on air: </h6> {{numberofSeasons}} 
+        <p><h6>Genres: </h6>
+        <p><span v-for="(genre, i) in genres" :key="i"> {{ genre }} |</span> 
+        <p><h6>Active: </h6> 
+        <i class="small material-icons" v-if="isCurrent"> check </i>
+        <i class="small material-icons red remove_circle" v-else> local_movies </i>
+    </div>
 
-        <a href="" target="/" rel="" class="btn red">Atrás</a>
-        
-    </div> 
+    <div class="trailer" v-html="trailer">
+        {{trailer}}
+    </div>
+
+    <a href="" target="/" rel="" class="btn red">Home</a>
+      
+  </div> 
 </template>
 
 <script>
-import { db } from '../firebase';  
+import { db } from '@/firebase';  
 
 export default {
   name: 'Show',

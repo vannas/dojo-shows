@@ -3,12 +3,10 @@ import VueRouter from 'vue-router';
 
 import Series from '../components/Series.vue';
 import Show from '../components/Show.vue'
-
 import Editar from '../components/Shows/Editar.vue'
 
 
 Vue.use(VueRouter);
-
 
 export default new VueRouter ({
     routes: [
@@ -22,7 +20,8 @@ export default new VueRouter ({
         },
         {
             path: '/shows/:id/editar',
-            component: Editar
+            component: Editar,
+            props: true
         }
 
     ]
