@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="center-align">
-      <i class="large material-icons">tv</i>
+      <img src="@/assets/tv.gif" alt="logo" class="teve">
       <h2 class="">TV Shows</h2>
       
       <router-view />
@@ -19,16 +19,21 @@ export default {
 </script>
 
 <style>
-#app {
+#app, html {
   font-family: 'Oswald', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 10px;
   margin-bottom:50px;
+  background-color:#80cbc4;
+}
+
+.teve {
+  max-width: 150px;
 }
 
 h2 {
-  margin-top:-1rem;
+  margin-top:1rem;
 }
 </style>

@@ -4,7 +4,7 @@
     <h2 class="left-align">{{title}}</h2>
 
     <div class="resumen align-justify col s4 m4">
-        <h5 class="white-text">Summary:</h5>
+        <h5 class="blue-grey-text">Summary:</h5>
 
         <h6 class="col s4 m4"> {{summary}} </h6>
     </div>     
@@ -13,7 +13,7 @@
         <p><h6>Network: </h6> {{network}} 
         <p><h6>Seasons on air: </h6> {{numberofSeasons}} 
         <p><h6>Genres: </h6>
-        <p><span v-for="(genre, i) in genres" :key="i"> {{ genre }} |</span> 
+        <p><span v-for="(genre, i) in genres" :key="i"> {{ genre }} 〢 </span> 
         <p><h6>Active: </h6> 
         <i class="small material-icons" v-if="isCurrent"> check </i>
         <i class="small material-icons red remove_circle" v-else> local_movies </i>
@@ -71,7 +71,8 @@ export default {
 <style scoped>
 
 .container{
-    background-color:rgb(67, 131, 250);
+    background-color: white;
+    color:#1a237e;
     margin-top:50px;
     padding-top:50px;
     min-height: 500px;
@@ -83,7 +84,7 @@ export default {
 .resumen{
     display:inline-block;
     vertical-align: top;
-    color:white;
+    color:#1a237e;
     font-size: 16px;
     max-width:50%;
     text-align: justify;
@@ -92,12 +93,15 @@ export default {
 .info{
     display:inline-block;
     border: 2px dashed black;
-    color: blue-gray;
     font-size: 16px;
     margin:4%;
     padding-bottom:10px;
     width:20%; 
-    
+}
+
+.info h6 {
+  text-align:right;
+  margin-right:1em;
 }
 
 h2{
@@ -106,7 +110,6 @@ h2{
 
 h6{
     display:inline-block;
-    color:white;
     font-size:16px;
     margin-top:2px;
 }
